@@ -12,10 +12,12 @@ namespace IS413_Mission06_jel14t.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private MovieContext _movieContext { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MovieContext x)
         {
             _logger = logger;
+            _movieContext = x;
         }
 
         [HttpGet]
@@ -39,7 +41,9 @@ namespace IS413_Mission06_jel14t.Controllers
         [HttpPost]
         public IActionResult AddMovie(MovieEntryModel response)
         {
-            return View();
+            _movieContext.Add(response);
+            _movieContext.SaveChanges();
+            return RedirectToAction("AddMovie");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

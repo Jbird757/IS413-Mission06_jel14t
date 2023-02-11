@@ -16,6 +16,10 @@ namespace IS413_Mission06_jel14t.Models
             return numYear;
         }
 
+        [Key]
+        [Required]
+        public int EntryID { get; set; }
+
         [Required(ErrorMessage = "The category field is required")]
         public string category { get; set; }
 
@@ -23,7 +27,6 @@ namespace IS413_Mission06_jel14t.Models
         public string title { get; set; }
 
         [Required(ErrorMessage = "The year field is required")]
-        [Range(0, 5000)]
         public int year { get; set; }
 
         [Required(ErrorMessage = "The director field is required")]
