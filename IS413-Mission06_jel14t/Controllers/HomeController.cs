@@ -18,17 +18,26 @@ namespace IS413_Mission06_jel14t.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult Podcasts()
         {
             return View();
         }
 
-        public IActionResult newMovie()
+        [HttpGet]
+        public IActionResult AddMovie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddMovie(MovieEntryModel response)
         {
             return View();
         }

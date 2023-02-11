@@ -24,17 +24,25 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Podcasts">Podcasts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="newMovie">Movie Entry</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AddMovie">Movie Entry</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">@ViewData["Header"]</h1>
+                <p class="lead fw-normal text-white-50 mb-0">@ViewData["SubHeader"]</p>
+            </div>
+        </div>
+    </header>
     @RenderBody()
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - IS413_Mission06_jel14t - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - IS413_Mission06_jel14t
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
