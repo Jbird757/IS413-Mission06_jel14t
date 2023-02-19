@@ -20,9 +20,6 @@ namespace IS413_Mission06_jel14t.Models
         [Required]
         public int EntryID { get; set; }
 
-        [Required(ErrorMessage = "The category field is required")]
-        public string category { get; set; }
-
         [Required(ErrorMessage = "The title field is required")]
         public string title { get; set; }
 
@@ -41,5 +38,12 @@ namespace IS413_Mission06_jel14t.Models
 
         [StringLength(25, ErrorMessage = "Notes must be 25 characters or less")]
         public string notes { get; set; }
+
+
+        //Foreign Key
+        [Required(ErrorMessage = "The category field is required")]
+        [Range(1, 8, ErrorMessage ="You must Select a Category")]
+        public int categoryID { get; set; }
+        public Category Category { get; set; }
     }
 }

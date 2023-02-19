@@ -1,5 +1,6 @@
 ﻿using IS413_Mission06_jel14t.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace IS413_Mission06_jel14t.Controllers
         [HttpGet]
         public IActionResult AddMovie()
         {
+            ViewBag.Categories = _movieContext.Categories.ToList();
             return View();
         }
 
@@ -44,6 +46,16 @@ namespace IS413_Mission06_jel14t.Controllers
             _movieContext.Add(response);
             _movieContext.SaveChanges();
             return RedirectToAction("AddMovie");
+        }
+
+        [HttpGet]
+        public IActionResult MovieList()
+        {
+            var dbEntries = _movieContext.responses
+                .Include(x => x.Category)
+                .OrderBy(x => x.title)
+                .ToList();
+            return View(dbEntries);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

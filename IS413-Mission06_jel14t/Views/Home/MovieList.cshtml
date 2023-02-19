@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "My Library";
+    ViewData["Header"] = "My Library";
+    ViewData["SubHeader"] = "Managing your library has never been easier!";
+}
+
+@model List<MovieEntryModel>
+
+<div class="justify-content-center align-items-center rounded mx-auto p-3 shadow" style="width: 80%;">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Year Released</th>
+                <th scope="col">Director</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Edited</th>
+                <th scope="col">Lent To</th>
+                <th scope="col">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model)
+            {
+                <tr>
+                    <th scope="row">@entry.title</th>
+                    <td>@entry.Category.categoryName</td>
+                    <td>@entry.year</td>
+                    <td>@entry.director</td>
+                    <td>@entry.rating</td>
+                    <td>@entry.edited</td>
+                    <td>@entry.lentTo</td>
+                    <td>@entry.notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

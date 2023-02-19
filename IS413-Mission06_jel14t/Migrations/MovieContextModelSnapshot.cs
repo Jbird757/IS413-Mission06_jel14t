@@ -15,15 +15,70 @@ namespace IS413_Mission06_jel14t.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("IS413_Mission06_jel14t.Models.Category", b =>
+                {
+                    b.Property<int>("categoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("categoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("categoryID");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            categoryID = 1,
+                            categoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            categoryID = 2,
+                            categoryName = "Comedy"
+                        },
+                        new
+                        {
+                            categoryID = 3,
+                            categoryName = "Drama"
+                        },
+                        new
+                        {
+                            categoryID = 4,
+                            categoryName = "Family"
+                        },
+                        new
+                        {
+                            categoryID = 5,
+                            categoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            categoryID = 6,
+                            categoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            categoryID = 7,
+                            categoryName = "Television"
+                        },
+                        new
+                        {
+                            categoryID = 8,
+                            categoryName = "VHS"
+                        });
+                });
+
             modelBuilder.Entity("IS413_Mission06_jel14t.Models.MovieEntryModel", b =>
                 {
                     b.Property<int>("EntryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("categoryID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("director")
                         .IsRequired()
@@ -52,13 +107,15 @@ namespace IS413_Mission06_jel14t.Migrations
 
                     b.HasKey("EntryID");
 
+                    b.HasIndex("categoryID");
+
                     b.ToTable("responses");
 
                     b.HasData(
                         new
                         {
                             EntryID = 1,
-                            category = "Action/Adventure",
+                            categoryID = 1,
                             director = "John McTiernan",
                             edited = true,
                             rating = "R",
@@ -68,7 +125,7 @@ namespace IS413_Mission06_jel14t.Migrations
                         new
                         {
                             EntryID = 2,
-                            category = "Action/Adventure",
+                            categoryID = 1,
                             director = "Roland Emmerich",
                             edited = false,
                             rating = "PG-13",
@@ -78,7 +135,7 @@ namespace IS413_Mission06_jel14t.Migrations
                         new
                         {
                             EntryID = 3,
-                            category = "Comedy",
+                            categoryID = 2,
                             director = "John Hughes",
                             edited = true,
                             lentTo = "Dave",
@@ -87,6 +144,15 @@ namespace IS413_Mission06_jel14t.Migrations
                             title = "Planes, Trains and Automobiles",
                             year = 1987
                         });
+                });
+
+            modelBuilder.Entity("IS413_Mission06_jel14t.Models.MovieEntryModel", b =>
+                {
+                    b.HasOne("IS413_Mission06_jel14t.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("categoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

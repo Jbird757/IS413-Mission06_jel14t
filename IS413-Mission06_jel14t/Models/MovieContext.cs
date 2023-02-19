@@ -14,14 +14,26 @@ namespace IS413_Mission06_jel14t.Models
         }
 
         public DbSet<MovieEntryModel> responses { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category { categoryID = 1, categoryName = "Action/Adventure"},
+                new Category { categoryID = 2, categoryName = "Comedy" },
+                new Category { categoryID = 3, categoryName = "Drama" },
+                new Category { categoryID = 4, categoryName = "Family" },
+                new Category { categoryID = 5, categoryName = "Horror/Suspense" },
+                new Category { categoryID = 6, categoryName = "Miscellaneous" },
+                new Category { categoryID = 7, categoryName = "Television" },
+                new Category { categoryID = 8, categoryName = "VHS" }
+                );
+
             mb.Entity<MovieEntryModel>().HasData(
                 new MovieEntryModel
                 {
                     EntryID = 1,
-                    category = "Action/Adventure",
+                    categoryID = 1,
                     title = "Die Hard",
                     year = 1988,
                     director = "John McTiernan",
@@ -31,7 +43,7 @@ namespace IS413_Mission06_jel14t.Models
                 new MovieEntryModel
                 {
                     EntryID = 2,
-                    category = "Action/Adventure",
+                    categoryID = 1,
                     title = "Independence Day",
                     year = 1996,
                     director = "Roland Emmerich",
@@ -42,7 +54,7 @@ namespace IS413_Mission06_jel14t.Models
                 new MovieEntryModel
                 {
                     EntryID = 3,
-                    category = "Comedy",
+                    categoryID = 2,
                     title = "Planes, Trains and Automobiles",
                     year = 1987,
                     director = "John Hughes",
