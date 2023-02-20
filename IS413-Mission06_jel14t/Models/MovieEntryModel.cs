@@ -6,16 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IS413_Mission06_jel14t.Models
 {
+
+    public class CurrentYearRangeAttribute : RangeAttribute
+    {
+        public CurrentYearRangeAttribute(int minimum) : base(minimum, DateTime.Now.Year)
+        {
+            //ErrorMessage = "Year must be between {0} and the current year";
+        }
+    }
     public class MovieEntryModel
     {
-        static int GetCurrentYear()
-        {
-            string CurrentYear = DateTime.Now.Year.ToString();
-            int numYear = int.Parse(CurrentYear);
-
-            return numYear;
-        }
-
         [Key]
         [Required]
         public int EntryID { get; set; }
@@ -24,6 +24,7 @@ namespace IS413_Mission06_jel14t.Models
         public string title { get; set; }
 
         [Required(ErrorMessage = "The year field is required")]
+        [CurrentYearRange(1900, ErrorMessage ="Please enter a valid year. Valid years are from 1900 to the present")]
         public int year { get; set; }
 
         [Required(ErrorMessage = "The director field is required")]
@@ -42,7 +43,7 @@ namespace IS413_Mission06_jel14t.Models
 
         //Foreign Key
         [Required(ErrorMessage = "The category field is required")]
-        [Range(1, 8, ErrorMessage ="You must Select a Category")]
+        [Range(1, 8, ErrorMessage ="You must select a Category")]
         public int categoryID { get; set; }
         public Category Category { get; set; }
     }

@@ -9,7 +9,7 @@ namespace IS413_Mission06_jel14t.Models
     public class Category
     {
         [Key]
-        [Required]
+        [Required(ErrorMessage ="You must select a category")]
         public int categoryID { get; set; }
         public string categoryName { get; set; }
     }

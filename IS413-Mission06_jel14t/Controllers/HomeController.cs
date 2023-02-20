@@ -37,15 +37,24 @@ namespace IS413_Mission06_jel14t.Controllers
         public IActionResult AddMovie()
         {
             ViewBag.Categories = _movieContext.Categories.ToList();
-            return View();
+            return View(new MovieEntryModel());
         }
 
         [HttpPost]
         public IActionResult AddMovie(MovieEntryModel response)
         {
-            _movieContext.Add(response);
-            _movieContext.SaveChanges();
-            return RedirectToAction("AddMovie");
+            MovieEntryModel movie = response;
+            if (ModelState.IsValid)
+            {
+                _movieContext.Add(response);
+                _movieContext.SaveChanges();
+                return RedirectToAction("AddMovie");
+            }
+            else
+            {
+                ViewBag.Categories = _movieContext.Categories.ToList();
+                return View(response);
+            }
         }
 
         [HttpGet]
@@ -56,6 +65,46 @@ namespace IS413_Mission06_jel14t.Controllers
                 .OrderBy(x => x.title)
                 .ToList();
             return View(dbEntries);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Categories = _movieContext.Categories.ToList();
+            MovieEntryModel movie = _movieContext.responses.Single(x => x.EntryID == id);
+
+            return View("AddMovie", movie);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(MovieEntryModel response)
+        {
+            if (ModelState.IsValid)
+            {
+                _movieContext.responses.Update(response);
+                _movieContext.SaveChanges();
+                return RedirectToAction("MovieList");
+            }
+            else
+            {
+                ViewBag.Categories = _movieContext.Categories.ToList();
+                return View(response);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            MovieEntryModel model = _movieContext.responses.Single(x => x.EntryID == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(MovieEntryModel response)
+        {
+            _movieContext.responses.Remove(response);
+            _movieContext.SaveChanges();
+            return RedirectToAction("MovieList");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
